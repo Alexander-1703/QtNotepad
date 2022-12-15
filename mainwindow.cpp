@@ -1,12 +1,13 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "dialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->setCentralWidget(ui -> textEdit);
+//    this->setCentralWidget(ui -> textEdit);
 }
 
 MainWindow::~MainWindow()
@@ -128,5 +129,19 @@ void MainWindow::on_actionUndo_triggered()
 void MainWindow::on_actionRedo_triggered()
 {
         ui->textEdit->redo();
+}
+
+
+void MainWindow::on_pushButton_clicked()
+{
+
+}
+
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    Dialog* dialog = new Dialog();
+    dialog -> setWindowTitle("Note");
+    dialog -> show();
 }
 
