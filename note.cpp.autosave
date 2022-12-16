@@ -1,7 +1,0 @@
-#include "note.h"
-
-Note:: Note(QString author, QDateTime creationDate, QDateTime changeDate, QStringList tags, QString text)
-{
-    this -> author = author;
-    this->creationDate = cr 
-}
