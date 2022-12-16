@@ -43,7 +43,10 @@ bool Note::serialize(QSqlQuery& query) {
 }
 
 bool Note::refresh(QSqlQuery& query, int id){
-    query.executedQuery();
-    id = 0;
-    return id;
+    query.prepare("UPDATE notes SET creationDate=?, text=?, tags=? WHERE id=?");
+    query.addBindValue(creationDate.toString());
+    query.addBindValue(text);
+    query.addBindValue(tags);
+    query.addBindValue(id);
+    return query.exec();
 }

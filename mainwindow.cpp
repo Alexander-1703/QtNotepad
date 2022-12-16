@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "dialog.h"
+#include "searchwindow.h".h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -140,8 +140,8 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    Dialog* dialog = new Dialog();
-    dialog -> setWindowTitle("Note");
-    dialog -> show();
+    SearchWindow* searchWindow = new SearchWindow();
+    searchWindow -> setWindowTitle("Search a note");
+    searchWindow -> show();
 }
 

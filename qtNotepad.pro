@@ -14,17 +14,20 @@ SOURCES += \
     dialog.cpp \
     main.cpp \
     mainwindow.cpp \
-    note.cpp
+    note.cpp \
+    searchwindow.cpp
 
 HEADERS += \
     abstractNote.h \
     dialog.h \
     mainwindow.h \
-    note.h
+    note.h \
+    searchwindow.h
 
 FORMS += \
     dialog.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    searchwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
