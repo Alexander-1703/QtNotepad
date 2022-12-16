@@ -7,7 +7,7 @@
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QListWidgetItem>
-
+#include "databaseinteraction.h"
 #include<QFile>
 #include<QFileDialog>
 #include<QTextStream>
@@ -32,17 +32,7 @@ private slots:
 
     void on_actionOpen_triggered();
 
-    void on_actionSave_as_triggered();
-
-    void on_actionPrint_triggered();
-
     void on_actionExit_triggered();
-
-    void on_actionCopy_triggered();
-
-    void on_actionPaste_triggered();
-
-    void on_actionCut_triggered();
 
     void on_actionUndo_triggered();
 
@@ -54,7 +44,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QString currentFile = " ";
-//    QSqlDatabase database;
+    DatabaseInteraction* dbInteraction;
+    QSqlDatabase database;
 };
 #endif // MAINWINDOW_H
