@@ -1,26 +1,21 @@
 #ifndef NOTE_H
 #define NOTE_H
 
-#include <QString>
-#include <QDateTime>
-#include <QSqlQuery>
+#include "abstractNote.h"
 
-class Note
+class Note: public AbstractNote
 {
 public:
-    QString author;
-    QDateTime creationDate;
-    QDateTime changeDate;
-    QStringList tags;
-    QString text;
-    int id;
+        Note(QString author, QDateTime changeDate, QStringList tags, QString text);
+        Note(QString author, QStringList tags, QString text);
+        Note();
+        ~Note();
+private:
+        long long id;
 
-    Note(QString author, QDateTime creationDate, QDateTime changeDate, QStringList tags, QString text);
+        bool serialize(QSqlQuery& query) override;
 
-    bool serialize(QSqlQuery& query);
-
-    bool refresh(QSqlQuery& query, int id);
-
+        bool refresh(QSqlQuery& query, int id) override;
 };
 
 #endif // NOTE_H
