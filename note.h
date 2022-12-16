@@ -10,12 +10,6 @@ public:
         Note(QString author, QStringList tags, QString text);
         Note();
         ~Note();
-private:
-        long long id;
-
-        bool serialize(QSqlQuery& query) override;
-
-        bool refresh(QSqlQuery& query, int id) override;
 };
 
 #endif // NOTE_H

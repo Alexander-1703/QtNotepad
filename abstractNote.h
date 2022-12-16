@@ -8,17 +8,13 @@
 class AbstractNote
 {
 
-protected:
+public:
     QString author;
     QDateTime creationDate;
     QDateTime changeDate;
     QStringList tags;
     QString text;
-
-    virtual bool serialize(QSqlQuery& query) = 0;
-
-    virtual bool refresh(QSqlQuery& query, int id) = 0;
-
+    long long id;
 };
 
 #endif // ABSTRACTNOTE_H

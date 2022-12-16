@@ -29,24 +29,3 @@ Note::Note(QString author, QDateTime changeDate, QStringList tags, QString text)
     this -> text = text;
     this -> id = creationDate.toMSecsSinceEpoch();
 }
-
-bool Note::serialize(QSqlQuery& query) {
-    query.prepare("INSERT INTO notes (author, creationDate, changeDate, tags, text, id) "
-                  "VALUES (:author, :creationDate, :changeDate, :tags, :text, :id)");
-    query.bindValue(":author", this -> id);
-    query.bindValue(":creationDate", this -> creationDate);
-    query.bindValue(":changeDate", this -> changeDate);
-    query.bindValue(":tags", this -> tags);
-    query.bindValue(":text", this -> text);
-    query.bindValue(":id", this -> id);
-    return query.exec();
-}
-
-bool Note::refresh(QSqlQuery& query, int id){
-    query.prepare("UPDATE notes SET creationDate=?, text=?, tags=? WHERE id=?");
-    query.addBindValue(creationDate.toString());
-    query.addBindValue(text);
-    query.addBindValue(tags);
-    query.addBindValue(id);
-    return query.exec();
-}
