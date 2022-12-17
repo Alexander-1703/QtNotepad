@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
+//    ui->setupUi(this);
     database = QSqlDatabase::addDatabase("QSQLITE");
     database.setHostName("127.0.0.1");
     database.setDatabaseName("notepadDB");
@@ -28,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
     } else {
         qDebug () << "db connection failed";
     }
-    this -> DatabaseInteraction = new DatabaseInteraction(database);
+    this -> dbInteraction = new DatabaseInteraction(database);
 }
 
 MainWindow::~MainWindow()
