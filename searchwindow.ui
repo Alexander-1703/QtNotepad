@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>555</width>
-    <height>385</height>
+    <height>483</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>10</x>
      <y>10</y>
      <width>531</width>
-     <height>131</height>
+     <height>206</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -38,8 +38,8 @@
   <widget class="QWidget" name="verticalLayoutWidget_2">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>300</y>
+     <x>20</x>
+     <y>396</y>
      <width>241</width>
      <height>61</height>
     </rect>
@@ -57,10 +57,10 @@
   <widget class="QWidget" name="verticalLayoutWidget_3">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>150</y>
+     <x>20</x>
+     <y>220</y>
      <width>240</width>
-     <height>141</height>
+     <height>136</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -81,14 +81,14 @@
     <item>
      <widget class="QRadioButton" name="radioButton_3">
       <property name="text">
-       <string>recently created (&lt;= 3days)</string>
+       <string>recently created (&lt;= N days)</string>
       </property>
      </widget>
     </item>
     <item>
      <widget class="QRadioButton" name="radioButton_4">
       <property name="text">
-       <string>recently modified (&lt;= 3days)</string>
+       <string>recently modified (&lt;= N days)</string>
       </property>
      </widget>
     </item>
@@ -98,11 +98,33 @@
    <property name="geometry">
     <rect>
      <x>270</x>
-     <y>150</y>
+     <y>220</y>
      <width>271</width>
-     <height>191</height>
+     <height>221</height>
     </rect>
    </property>
+  </widget>
+  <widget class="QWidget" name="horizontalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>357</y>
+     <width>241</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <item>
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>N:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTextEdit" name="textEdit"/>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>

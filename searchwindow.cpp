@@ -1,5 +1,6 @@
 #include "searchwindow.h"
 #include "ui_searchwindow.h"
+#include<QMessageBox>
 
 const int AUTHOR_SEARCH = 0;
 const int TAG_SEARCH = 1;
@@ -65,7 +66,12 @@ void SearchWindow::on_pushButton_clicked()
             while (query.next()) {
                 auto noteDate =  query.record().value(1).toString().split(" ")[2].toInt();
                 auto currentDate = QDateTime::currentDateTime().toString().split(" ")[2].toInt();
-                if ((currentDate - noteDate) <= 3) {
+                int lessThanDays = ui -> textEdit ->toPlainText().toInt();
+                if (lessThanDays <= 0) {
+                    QMessageBox::warning(this, "Warning", "Invalid input.");
+                    return;
+                }
+                if ((currentDate - noteDate) <= lessThanDays) {
                     QString str = query.record().value(4).toString() + "      " +
                             + "[Author: " + query.record().value(0).toString() + ",    " +
                             + "Tags: " + query.record().value(3).toString() + ",    " +
@@ -84,7 +90,14 @@ void SearchWindow::on_pushButton_clicked()
             while (query.next()) {
                 auto noteDate =  query.record().value(1).toString().split(" ")[2].toInt();
                 auto currentDate = QDateTime::currentDateTime().toString().split(" ")[2].toInt();
-                if (noteDate - currentDate <= 3) {
+                int lessThanDays = ui -> textEdit ->toPlainText().toInt();
+                if (lessThanDays <= 0) {
+                    QMessageBox::warning(this, "Warning", "Invalid input");
+                    ui->textEdit->clear();
+                    return;
+                }
+                qDebug() << noteDate << " - " << currentDate << " <= " << lessThanDays;
+                if (noteDate - currentDate <= lessThanDays) {
                     QString str = query.record().value(4).toString() + "      " +
                             + "[Author: " + query.record().value(0).toString() + ",    " +
                             + "Tags: " + query.record().value(3).toString() + ",    " +
@@ -96,6 +109,7 @@ void SearchWindow::on_pushButton_clicked()
             }
             break;
     }
+    ui->textEdit->clear();
 }
 
 int SearchWindow::getSearchFilter() const {
