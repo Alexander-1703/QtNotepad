@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>555</width>
+    <height>385</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,11 +18,18 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>381</width>
+     <width>531</width>
      <height>131</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>to search by author or tags:</string>
+      </property>
+     </widget>
+    </item>
     <item>
      <widget class="QPlainTextEdit" name="plainTextEdit"/>
     </item>
@@ -31,10 +38,10 @@
   <widget class="QWidget" name="verticalLayoutWidget_2">
    <property name="geometry">
     <rect>
-     <x>230</x>
-     <y>250</y>
-     <width>160</width>
-     <height>41</height>
+     <x>10</x>
+     <y>300</y>
+     <width>241</width>
+     <height>61</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -52,7 +59,7 @@
     <rect>
      <x>10</x>
      <y>150</y>
-     <width>211</width>
+     <width>240</width>
      <height>141</height>
     </rect>
    </property>
@@ -67,25 +74,35 @@
     <item>
      <widget class="QRadioButton" name="radioButton_2">
       <property name="text">
-       <string>search by tag</string>
+       <string>search by tag (through a space)</string>
       </property>
      </widget>
     </item>
     <item>
      <widget class="QRadioButton" name="radioButton_3">
       <property name="text">
-       <string>created less than 3d ago</string>
+       <string>recently created (&lt;= 3days)</string>
       </property>
      </widget>
     </item>
     <item>
      <widget class="QRadioButton" name="radioButton_4">
       <property name="text">
-       <string>modified less than 3d ago</string>
+       <string>recently modified (&lt;= 3days)</string>
       </property>
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QListWidget" name="listWidget">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>150</y>
+     <width>271</width>
+     <height>191</height>
+    </rect>
+   </property>
   </widget>
  </widget>
  <resources/>

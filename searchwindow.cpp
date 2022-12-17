@@ -20,12 +20,8 @@ SearchWindow::~SearchWindow()
 
 void SearchWindow::on_pushButton_clicked()
 {
-//    Dialog* dialog = new Dialog();
-//    dialog -> setWindowTitle("Note");
-//    dialog -> show();
-    ui->plainTextEdit->clear();
+    ui->listWidget->clear();
     QSqlQuery query = QSqlQuery(database);
-
     switch(getSearchFilter()) {
         case(AUTHOR_SEARCH):
             query.prepare("SELECT * FROM notes WHERE author=?");
@@ -34,10 +30,13 @@ void SearchWindow::on_pushButton_clicked()
                qDebug() << "Failed to connect to database";
             }
             while (query.next()) {
-                QString str = query.record().value(0).toString() + " " +
-                        query.record().value(3).toString() + " " +
-                        query.record().value(4).toString()+ "\n";
-                ui->plainTextEdit->appendPlainText(str);
+                QString str = query.record().value(4).toString() + "      " +
+                        + "[Author: " + query.record().value(0).toString() + ",    " +
+                        + "Tags: " + query.record().value(3).toString() + ",    " +
+                        + "Creation date: " + query.record().value(1).toString() + ",     " +
+                        + "Change date: " + query.record().value(2).toString() + "]";
+                QListWidgetItem* item = new QListWidgetItem(str);
+                ui->listWidget->addItem(item);
             }
             break;
         case(TAG_SEARCH):
@@ -48,10 +47,13 @@ void SearchWindow::on_pushButton_clicked()
             while (query.next()) {
                 if (query.record().value(3).toString().split(" ").contains(ui-> plainTextEdit -> toPlainText())
                         && query.record().value(5).toString().length() > 0) {
-                    QString str = query.record().value(0).toString() + " " +
-                            query.record().value(3).toString() + " " +
-                            query.record().value(4).toString()+ "\n";
-                    ui->plainTextEdit->appendPlainText(str);
+                    QString str = query.record().value(4).toString() + "      " +
+                            + "[Author: " + query.record().value(0).toString() + ",    " +
+                            + "Tags: " + query.record().value(3).toString() + ",    " +
+                            + "Creation date: " + query.record().value(1).toString() + ",     " +
+                            + "Change date: " + query.record().value(2).toString() + "]";
+                    QListWidgetItem* item = new QListWidgetItem(str);
+                    ui->listWidget->addItem(item);
                 }
             }
             break;
@@ -61,12 +63,16 @@ void SearchWindow::on_pushButton_clicked()
                qDebug() << "Failed to connect to database";
             }
             while (query.next()) {
-                QDateTime dateTimeCreation = query.record().value(1).toDateTime();
-                if (dateTimeCreation.daysTo(QDateTime::currentDateTime()) < 3) {
-                    QString str = query.record().value(0).toString() + " " +
-                            query.record().value(3).toString() + " " +
-                            query.record().value(4).toString()+ "\n";
-                    ui->plainTextEdit->appendPlainText(str);
+                auto noteDate =  query.record().value(1).toString().split(" ")[2].toInt();
+                auto currentDate = QDateTime::currentDateTime().toString().split(" ")[2].toInt();
+                if ((currentDate - noteDate) <= 3) {
+                    QString str = query.record().value(4).toString() + "      " +
+                            + "[Author: " + query.record().value(0).toString() + ",    " +
+                            + "Tags: " + query.record().value(3).toString() + ",    " +
+                            + "Creation date: " + query.record().value(1).toString() + ",     " +
+                            + "Change date: " + query.record().value(2).toString() + "]";
+                    QListWidgetItem* item = new QListWidgetItem(str);
+                    ui->listWidget->addItem(item);
                 }
             }
             break;
@@ -76,12 +82,16 @@ void SearchWindow::on_pushButton_clicked()
                qDebug() << "Failed to connect to database";
             }
             while (query.next()) {
-                QDateTime dateTimeChange = query.record().value(2).toDateTime();
-                if (dateTimeChange.daysTo(QDateTime::currentDateTime()) < 3) {
-                    QString str = query.record().value(0).toString() + " " +
-                            query.record().value(3).toString() + " " +
-                            query.record().value(4).toString()+ "\n";
-                    ui->plainTextEdit->appendPlainText(str);
+                auto noteDate =  query.record().value(1).toString().split(" ")[2].toInt();
+                auto currentDate = QDateTime::currentDateTime().toString().split(" ")[2].toInt();
+                if (noteDate - currentDate <= 3) {
+                    QString str = query.record().value(4).toString() + "      " +
+                            + "[Author: " + query.record().value(0).toString() + ",    " +
+                            + "Tags: " + query.record().value(3).toString() + ",    " +
+                            + "Creation date: " + query.record().value(1).toString() + ",     " +
+                            + "Change date: " + query.record().value(2).toString() + "]";
+                    QListWidgetItem* item = new QListWidgetItem(str);
+                    ui->listWidget->addItem(item);
                 }
             }
             break;
