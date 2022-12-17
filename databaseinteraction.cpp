@@ -1,4 +1,6 @@
 #include "databaseinteraction.h"
+#include <QDebug>
+#include <QSqlError>
 
 DatabaseInteraction::DatabaseInteraction(QSqlDatabase& database)
 {
@@ -11,12 +13,17 @@ bool DatabaseInteraction::serialize(AbstractNote &note)
     query.prepare("INSERT INTO notes (author, creationDate, changeDate, tags, text, id) "
                   "VALUES (:author, :creationDate, :changeDate, :tags, :text, :id)");
     query.bindValue(":author", note.author);
-    query.bindValue(":creationDate", note.creationDate);
-    query.bindValue(":changeDate", note.changeDate);
-    query.bindValue(":tags", note.tags);
+    query.bindValue(":creationDate", note.creationDate.toString());
+    query.bindValue(":changeDate", note.changeDate.toString());
+    query.bindValue(":tags", note.tags.join(" "));
     query.bindValue(":text", note.text);
     query.bindValue(":id", note.id);
-    return query.exec();
+    if (query.exec()) {
+        qDebug() << "succesful serialization";
+        return true;
+     }
+    qDebug() << "serialization failed";
+    return true;
 }
 
 bool DatabaseInteraction::update(AbstractNote &note, long long id){

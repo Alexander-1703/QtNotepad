@@ -7,7 +7,6 @@
 
 class AbstractNote
 {
-
 public:
     QString author;
     QDateTime creationDate;

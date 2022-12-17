@@ -10,6 +10,8 @@
 #include <stdio.h>
 #include "searchwindow.h"
 #include <QMap>
+#include <QDebug>
+#include <QSqlError>
 #include <dialog.h>
 #include <stdlib.h>
 
@@ -17,18 +19,20 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-//    ui->setupUi(this);
+    ui->setupUi(this);
     database = QSqlDatabase::addDatabase("QSQLITE");
     database.setHostName("127.0.0.1");
-    database.setDatabaseName("notepadDB");
+    database.setDatabaseName("D:/qtProjects/qtNotepad/sqlite/notepadDB");
     database.setUserName("student");
     database.setPassword("student");
     if (database.open()) {
-        qDebug () << "db connection succes";
+        qDebug () << "database connection succes";
     } else {
-        qDebug () << "db connection failed";
+        qDebug () << "database connection failed";
+        qDebug() << database.lastError().text();
     }
     this -> dbInteraction = new DatabaseInteraction(database);
+    //update?
 }
 
 MainWindow::~MainWindow()
@@ -76,10 +80,23 @@ void MainWindow::on_actionRedo_triggered()
         ui->textEdit_2->redo();
 }
 
-
 void MainWindow::on_pushButton_clicked()
 {
-
+    auto author = ui->textEdit->toPlainText();
+    auto tags = ui->textEdit_3->toPlainText().split(" ");
+    auto text = ui->textEdit_2->toPlainText();
+    if (text.length() == 0) {
+        QMessageBox::warning(this, "Warning", "Note text is empty!");
+        return;
+    }
+    AbstractNote* note = new Note((author.length() == 0) ? "student" : author, tags, text);
+    if(!dbInteraction->serialize(*note)) {
+                qDebug() << "Serialize not succesful";
+    }
+    delete note;
+    ui ->textEdit -> clear();
+    ui ->textEdit_2 -> clear();
+    ui ->textEdit_3 -> clear();
 }
 
 
