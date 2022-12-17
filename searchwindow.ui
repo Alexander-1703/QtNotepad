@@ -35,31 +35,12 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="verticalLayoutWidget_2">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>396</y>
-     <width>241</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" name="verticalLayout_2">
-    <item>
-     <widget class="QPushButton" name="pushButton">
-      <property name="text">
-       <string>find</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
   <widget class="QWidget" name="verticalLayoutWidget_3">
    <property name="geometry">
     <rect>
      <x>20</x>
      <y>220</y>
-     <width>240</width>
+     <width>251</width>
      <height>136</height>
     </rect>
    </property>
@@ -97,10 +78,10 @@
   <widget class="QListWidget" name="listWidget">
    <property name="geometry">
     <rect>
-     <x>270</x>
+     <x>280</x>
      <y>220</y>
-     <width>271</width>
-     <height>221</height>
+     <width>261</width>
+     <height>161</height>
     </rect>
    </property>
   </widget>
@@ -109,7 +90,7 @@
     <rect>
      <x>20</x>
      <y>357</y>
-     <width>241</width>
+     <width>251</width>
      <height>21</height>
     </rect>
    </property>
@@ -123,6 +104,32 @@
     </item>
     <item>
      <widget class="QTextEdit" name="textEdit"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="horizontalLayoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>380</y>
+     <width>531</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_5">
+    <item>
+     <widget class="QPushButton" name="pushButton">
+      <property name="text">
+       <string>find</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="text">
+       <string>select</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>

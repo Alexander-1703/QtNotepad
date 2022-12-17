@@ -6,6 +6,7 @@
 #include <QWidget>
 #include <QDialog>
 #include <QDebug>
+#include <databaseinteraction.h>>
 #include "note.h"
 
 namespace Ui {
@@ -34,8 +35,11 @@ private slots:
 
     void on_radioButton_4_toggled(bool checked);
 
+    void on_pushButton_2_clicked();
+
 private:
     Ui::SearchWindow *ui;
+    DatabaseInteraction* dbInteraction;
     int searchFilter;
 };
 

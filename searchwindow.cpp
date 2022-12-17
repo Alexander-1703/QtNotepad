@@ -1,6 +1,8 @@
 #include "searchwindow.h"
 #include "ui_searchwindow.h"
-#include<QMessageBox>
+#include <QMessageBox>
+#include <abstractNote.h>
+#include <mainwindow.h>
 
 const int AUTHOR_SEARCH = 0;
 const int TAG_SEARCH = 1;
@@ -35,7 +37,8 @@ void SearchWindow::on_pushButton_clicked()
                         + "[Author: " + query.record().value(0).toString() + ",    " +
                         + "Tags: " + query.record().value(3).toString() + ",    " +
                         + "Creation date: " + query.record().value(1).toString() + ",     " +
-                        + "Change date: " + query.record().value(2).toString() + "]";
+                        + "Change date: " + query.record().value(2).toString() + ",     " +
+                        + "ID: " + query.record().value(5).toString() + "]";
                 QListWidgetItem* item = new QListWidgetItem(str);
                 ui->listWidget->addItem(item);
             }
@@ -52,7 +55,8 @@ void SearchWindow::on_pushButton_clicked()
                             + "[Author: " + query.record().value(0).toString() + ",    " +
                             + "Tags: " + query.record().value(3).toString() + ",    " +
                             + "Creation date: " + query.record().value(1).toString() + ",     " +
-                            + "Change date: " + query.record().value(2).toString() + "]";
+                            + "Change date: " + query.record().value(2).toString() + ",     " +
+                            + "ID: " + query.record().value(5).toString() + "]";
                     QListWidgetItem* item = new QListWidgetItem(str);
                     ui->listWidget->addItem(item);
                 }
@@ -76,7 +80,8 @@ void SearchWindow::on_pushButton_clicked()
                             + "[Author: " + query.record().value(0).toString() + ",    " +
                             + "Tags: " + query.record().value(3).toString() + ",    " +
                             + "Creation date: " + query.record().value(1).toString() + ",     " +
-                            + "Change date: " + query.record().value(2).toString() + "]";
+                            + "Change date: " + query.record().value(2).toString() + ",     " +
+                            + "ID: " + query.record().value(5).toString() + "]";
                     QListWidgetItem* item = new QListWidgetItem(str);
                     ui->listWidget->addItem(item);
                 }
@@ -102,7 +107,8 @@ void SearchWindow::on_pushButton_clicked()
                             + "[Author: " + query.record().value(0).toString() + ",    " +
                             + "Tags: " + query.record().value(3).toString() + ",    " +
                             + "Creation date: " + query.record().value(1).toString() + ",     " +
-                            + "Change date: " + query.record().value(2).toString() + "]";
+                            + "Change date: " + query.record().value(2).toString() + ",     " +
+                            + "ID: " + query.record().value(5).toString() + "]";
                     QListWidgetItem* item = new QListWidgetItem(str);
                     ui->listWidget->addItem(item);
                 }
@@ -149,5 +155,18 @@ void SearchWindow::on_radioButton_4_toggled(bool checked)
     if (checked) {
         setSearchFilter(CHANGE_SEARCH);
     }
+}
+
+
+void SearchWindow::on_pushButton_2_clicked()
+{
+    auto elements = ui -> listWidget ->currentItem()->text().split(" ");
+    long long selectedNoteId = elements[elements.length()-1].split("]")[0].toLongLong();
+    this -> dbInteraction = new DatabaseInteraction(database);
+    AbstractNote note = dbInteraction->get(selectedNoteId);
+    dbInteraction->remove(selectedNoteId);
+    this->close();
+
+//    dbInteraction->serialize(note)
 }
 

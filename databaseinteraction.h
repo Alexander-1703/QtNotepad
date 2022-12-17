@@ -10,6 +10,7 @@ public:
     bool serialize(AbstractNote& note);
     bool update(AbstractNote &note, long long id);
     bool remove(long long id);
+    AbstractNote get(long long id);
     DatabaseInteraction(QSqlDatabase& database);
 };
 

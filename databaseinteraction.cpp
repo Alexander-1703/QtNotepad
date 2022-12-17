@@ -1,6 +1,7 @@
 #include "databaseinteraction.h"
 #include <QDebug>
 #include <QSqlError>
+#include <QSqlRecord>
 
 DatabaseInteraction::DatabaseInteraction(QSqlDatabase& database)
 {
@@ -42,4 +43,33 @@ bool DatabaseInteraction::remove(long long id)
     query.prepare("DELETE FROM notes WHERE id=?");
     query.addBindValue(id);
     return query.exec();
+}
+
+AbstractNote DatabaseInteraction::get(long long id)
+{
+    QSqlQuery query = QSqlQuery(database);
+    query.prepare("SELECT * FROM notes WHERE id=?");
+    query.addBindValue(id);
+    if (!query.exec()) {
+       qDebug() << "Failed to get";
+    }
+
+    if (!query.next()) {
+        qDebug() << "No such id";
+    }
+    auto author = query.record().value(0).toString();
+    auto creationDate = query.record().value(1).toDateTime();
+    auto tags = query.record().value(3).toStringList();
+    auto text = query.record().value(4).toString();
+
+//    QString author,QDateTime creationDate, QDateTime changeDate, QStringList tags, QString text, long long id
+
+//    QString str = query.record().value(4).toString() + "      " +
+//            + "[Author: " + query.record().value(0).toString() + ",    " +
+//            + "Tags: " + query.record().value(3).toString() + ",    " +
+//            + "Creation date: " + query.record().value(1).toString() + ",     " +
+//            + "Change date: " + query.record().value(2).toString() + ",     " +
+//            + "ID: " + query.record().value(5).toString() + "]";
+
+    return *new Note(author, creationDate, QDateTime::currentDateTime(), tags, text, id);
 }
