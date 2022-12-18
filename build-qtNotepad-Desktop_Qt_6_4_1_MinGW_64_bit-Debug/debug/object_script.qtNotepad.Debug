@@ -1,0 +1,10 @@
+debug/databaseinteraction.o
+debug/dialog.o
+debug/main.o
+debug/mainwindow.o
+debug/note.o
+debug/searchwindow.o
+debug/qrc_Resources.o
+debug/moc_dialog.o
+debug/moc_mainwindow.o
+debug/moc_searchwindow.o

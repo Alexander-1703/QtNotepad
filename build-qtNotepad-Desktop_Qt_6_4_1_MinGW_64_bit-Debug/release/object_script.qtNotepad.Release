@@ -1,0 +1,10 @@
+release/databaseinteraction.o
+release/dialog.o
+release/main.o
+release/mainwindow.o
+release/note.o
+release/searchwindow.o
+release/qrc_Resources.o
+release/moc_dialog.o
+release/moc_mainwindow.o
+release/moc_searchwindow.o
