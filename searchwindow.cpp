@@ -25,12 +25,14 @@ SearchWindow::~SearchWindow()
 
 void SearchWindow::on_pushButton_clicked()
 {
+    QString plainText = ui->plainTextEdit->toPlainText();
     ui->listWidget->clear();
+    ui->plainTextEdit->clear();
     QSqlQuery query = QSqlQuery(database);
     switch(getSearchFilter()) {
         case(AUTHOR_SEARCH):
             query.prepare("SELECT * FROM notes WHERE author=?");
-            query.addBindValue(ui->plainTextEdit->toPlainText());
+            query.addBindValue(plainText);
             if (!query.exec()) {
                qDebug() << "Failed to connect to database";
             }
@@ -51,7 +53,7 @@ void SearchWindow::on_pushButton_clicked()
                qDebug() << "Failed to connect to database";
             }
             while (query.next()) {
-                if (query.record().value(3).toString().split(" ").contains(ui-> plainTextEdit -> toPlainText())
+                if (query.record().value(3).toString().split(" ").contains(plainText)
                         && query.record().value(5).toString().length() > 0) {
                     QString str = query.record().value(4).toString() + "      " +
                             + "[Author: " + query.record().value(0).toString() + ",    " +
@@ -72,9 +74,10 @@ void SearchWindow::on_pushButton_clicked()
             while (query.next()) {
                 auto noteDate =  query.record().value(1).toString().split(" ")[2].toInt();
                 auto currentDate = QDateTime::currentDateTime().toString().split(" ")[2].toInt();
-                int lessThanDays = ui -> textEdit ->toPlainText().toInt();
-                if (lessThanDays <= 0) {
+                int lessThanDays = plainText.toInt();
+                if (lessThanDays < 0) {
                     QMessageBox::warning(this, "Warning", "Invalid input.");
+                    ui->textEdit->clear();
                     return;
                 }
                 if ((currentDate - noteDate) <= lessThanDays) {
@@ -97,8 +100,8 @@ void SearchWindow::on_pushButton_clicked()
             while (query.next()) {
                 auto noteDate =  query.record().value(1).toString().split(" ")[2].toInt();
                 auto currentDate = QDateTime::currentDateTime().toString().split(" ")[2].toInt();
-                int lessThanDays = ui -> textEdit ->toPlainText().toInt();
-                if (lessThanDays <= 0) {
+                int lessThanDays = plainText.toInt();
+                if (lessThanDays < 0) {
                     QMessageBox::warning(this, "Warning", "Invalid input");
                     ui->textEdit->clear();
                     return;
@@ -116,7 +119,6 @@ void SearchWindow::on_pushButton_clicked()
             }
             break;
     }
-    ui->textEdit->clear();
 }
 
 int SearchWindow::getSearchFilter() const {

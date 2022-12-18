@@ -33,9 +33,10 @@ bool DatabaseInteraction::update(AbstractNote &note, long long id){
     query.addBindValue(note.author);
     query.addBindValue(note.changeDate.toString());
     query.addBindValue(note.text);
-    query.addBindValue(note.tags);
+    query.addBindValue(note.tags.join(" "));
     query.addBindValue(id);
     return query.exec();
+
 }
 
 bool DatabaseInteraction::remove(long long id)

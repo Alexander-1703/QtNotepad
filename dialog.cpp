@@ -22,6 +22,7 @@ Dialog::Dialog(AbstractNote note, QWidget *parent) :
 Dialog::~Dialog()
 {
     delete ui;
+    delete dbInteraction;
 }
 
 void Dialog::on_pushButton_2_clicked()
