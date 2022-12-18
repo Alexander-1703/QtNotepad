@@ -67,7 +67,7 @@
     <item>
      <widget class="QRadioButton" name="radioButton_2">
       <property name="text">
-       <string>search by tag (through a space)</string>
+       <string>search by tag</string>
       </property>
      </widget>
     </item>
