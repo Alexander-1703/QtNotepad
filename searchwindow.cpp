@@ -181,7 +181,6 @@ void SearchWindow::on_pushButton_2_clicked()
     Dialog* searchWindow = new Dialog(note);
     searchWindow -> setWindowTitle("Change a note");
     searchWindow -> show();
-    on_pushButton_3_clicked();
 }
 
 //show all
