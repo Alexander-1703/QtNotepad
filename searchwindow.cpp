@@ -76,7 +76,7 @@ void SearchWindow::on_pushButton_clicked()
                 auto currentDate = QDateTime::currentDateTime().toString().split(" ")[2].toInt();
                 int lessThanDays = plainText.toInt();
                 if (lessThanDays < 0) {
-                    QMessageBox::warning(this, "Warning", "Invalid input.");
+                    QMessageBox::warning(this, "Warning", "Invalid input");
                     ui->textEdit->clear();
                     return;
                 }
@@ -163,6 +163,11 @@ void SearchWindow::on_radioButton_4_toggled(bool checked)
 
 void SearchWindow::on_pushButton_2_clicked()
 {
+    if (this->ui->listWidget->selectedItems().size() == 0) {
+        QMessageBox::warning(this, "Warning", "Нou have not selected a list item");
+        return;
+    }
+
     auto elements = ui -> listWidget ->currentItem()->text().split(" ");
     long long selectedNoteId = elements[elements.length()-1].split("]")[0].toLongLong();
     this -> dbInteraction = new DatabaseInteraction(database);
