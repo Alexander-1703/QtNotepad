@@ -163,13 +163,10 @@ void SearchWindow::on_radioButton_4_toggled(bool checked)
 
 void SearchWindow::on_pushButton_2_clicked()
 {
-    if (this->ui->listWidget->selectedItems().size() == 0) {
-        QMessageBox::warning(this, "Warning", "Нou have not selected a list item");
+    long long selectedNoteId = getId();
+    if (selectedNoteId == -1) {
         return;
     }
-
-    auto elements = ui -> listWidget ->currentItem()->text().split(" ");
-    long long selectedNoteId = elements[elements.length()-1].split("]")[0].toLongLong();
     this -> dbInteraction = new DatabaseInteraction(database);
     AbstractNote note = dbInteraction->get(selectedNoteId);
     Dialog* searchWindow = new Dialog(note);
@@ -196,5 +193,30 @@ void SearchWindow::on_pushButton_3_clicked()
         QListWidgetItem* item = new QListWidgetItem(str);
         ui->listWidget->addItem(item);
     }
+}
+
+
+void SearchWindow::on_pushButton_4_clicked()
+{
+    long long selectedNoteId = getId();
+    if (selectedNoteId == -1) {
+        return;
+    }
+    this -> dbInteraction = new DatabaseInteraction(database);
+    if (dbInteraction->remove(selectedNoteId)) {
+        qDebug() << "successful delete from table";
+    } else {
+        qDebug() << "failed to delete from table";
+    }
+}
+
+long long SearchWindow::getId() {
+    if (this->ui->listWidget->selectedItems().size() == 0) {
+        QMessageBox::warning(this, "Warning", "You have not selected a list item");
+        return -1;
+    }
+    auto elements = ui -> listWidget ->currentItem()->text().split(" ");
+    long long selectedNoteId = elements[elements.length()-1].split("]")[0].toLongLong();
+    return selectedNoteId;
 }
 

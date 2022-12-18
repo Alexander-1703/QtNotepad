@@ -52,8 +52,8 @@
     <rect>
      <x>10</x>
      <y>220</y>
-     <width>231</width>
-     <height>136</height>
+     <width>239</width>
+     <height>131</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -101,8 +101,8 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>357</y>
-     <width>81</width>
+     <y>350</y>
+     <width>108</width>
      <height>21</height>
     </rect>
    </property>
@@ -133,6 +133,13 @@
      <widget class="QPushButton" name="pushButton">
       <property name="text">
        <string>find</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_4">
+      <property name="text">
+       <string>delete</string>
       </property>
      </widget>
     </item>
