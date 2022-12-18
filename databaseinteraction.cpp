@@ -17,11 +17,11 @@ bool DatabaseInteraction::serialize(AbstractNote &note)
     QSqlQuery query = QSqlQuery(database);
     query.prepare("INSERT INTO notes (author, creationDate, changeDate, tags, text, id) "
                   "VALUES (:author, :creationDate, :changeDate, :tags, :text, :id)");
-    query.bindValue(":author", note.author);
-    query.bindValue(":creationDate", note.creationDate.toString());
-    query.bindValue(":changeDate", note.changeDate.toString());
-    query.bindValue(":tags", note.tags.join(" "));
-    query.bindValue(":text", note.text);
+    query.bindValue(":author", note.author.toLower());
+    query.bindValue(":creationDate", note.creationDate.toString().toLower());
+    query.bindValue(":changeDate", note.changeDate.toString().toLower());
+    query.bindValue(":tags", note.tags.join(" ").toLower());
+    query.bindValue(":text", note.text.toLower());
     query.bindValue(":id", note.id);
     if (query.exec()) {
         qDebug() << "succesful serialization";
@@ -34,10 +34,10 @@ bool DatabaseInteraction::serialize(AbstractNote &note)
 bool DatabaseInteraction::update(AbstractNote &note, long long id){
     QSqlQuery query = QSqlQuery(database);
     query.prepare("UPDATE notes SET author=?, changeDate=?, text=?, tags=? WHERE id=?");
-    query.addBindValue(note.author);
-    query.addBindValue(note.changeDate.toString());
-    query.addBindValue(note.text);
-    query.addBindValue(note.tags.join(" "));
+    query.addBindValue(note.author.toLower());
+    query.addBindValue(note.changeDate.toString().toLower());
+    query.addBindValue(note.text.toLower());
+    query.addBindValue(note.tags.join(" ").toLower());
     query.addBindValue(id);
     return query.exec();
 
