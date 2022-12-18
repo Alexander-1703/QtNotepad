@@ -6,8 +6,7 @@
 #include <QWidget>
 #include <QDialog>
 #include <QDebug>
-#include <databaseinteraction.h>>
-#include "note.h"
+#include <databaseinteraction.h>
 
 namespace Ui {
 class SearchWindow;
