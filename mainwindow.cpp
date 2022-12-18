@@ -7,13 +7,9 @@
 #include <QDateTime>
 #include <QChar>
 #include <windows.h>
-#include <stdio.h>
-#include "searchwindow.h"
 #include <QMap>
 #include <QDebug>
 #include <QSqlError>
-#include <dialog.h>
-#include <stdlib.h>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -23,8 +19,6 @@ MainWindow::MainWindow(QWidget *parent)
     database = QSqlDatabase::addDatabase("QSQLITE");
     database.setHostName("127.0.0.1");
     database.setDatabaseName("D:/qtProjects/qtNotepad/sqlite/notepadDB");
-    database.setUserName("student");
-    database.setPassword("student");
     if (database.open()) {
         qDebug () << "database connection succes";
     } else {
@@ -32,7 +26,6 @@ MainWindow::MainWindow(QWidget *parent)
         qDebug() << database.lastError().text();
     }
     this -> dbInteraction = new DatabaseInteraction(database);
-    //update?
 }
 
 MainWindow::~MainWindow()

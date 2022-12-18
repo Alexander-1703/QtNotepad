@@ -1,9 +1,9 @@
 #include "searchwindow.h"
 #include "ui_searchwindow.h"
+#include "abstractNote.h"
+#include "dialog.h"
+
 #include <QMessageBox>
-#include <abstractNote.h>
-#include <mainwindow.h>
-#include <dialog.h>
 
 const int AUTHOR_SEARCH = 0;
 const int TAG_SEARCH = 1;

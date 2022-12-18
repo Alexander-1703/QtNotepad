@@ -1,6 +1,5 @@
 #include "dialog.h"
 #include "ui_dialog.h"
-#include <mainwindow.h>
 
 Dialog::Dialog(QWidget *parent) :
     QDialog(parent),
@@ -27,13 +26,11 @@ Dialog::~Dialog()
 
 void Dialog::on_pushButton_2_clicked()
 {
-    qDebug() << "start button func";
     this -> dbInteraction = new DatabaseInteraction(database);
     note.author =  ui->plainTextEdit->toPlainText();
     note.text =  ui->plainTextEdit_2->toPlainText();
     note.tags = ui->plainTextEdit_3->toPlainText().split(" ");
     note.changeDate = QDateTime::currentDateTime();
-    qDebug() << note.text;
     if(!dbInteraction->update(note, note.id)) {
         qDebug() << "Update not succesful";
     } else {
