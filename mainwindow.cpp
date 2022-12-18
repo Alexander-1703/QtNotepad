@@ -18,7 +18,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     database = QSqlDatabase::addDatabase("QSQLITE");
     database.setHostName("127.0.0.1");
-    database.setDatabaseName("D:/qtProjects/qtNotepad/sqlite/notepadDB");
+    database.setDatabaseName("../qtNotepad/sqlite/notepadDB");
+    qDebug() << database.databaseName();
+    qDebug()<<QDir::currentPath();
     if (database.open()) {
         qDebug () << "database connection succes";
     } else {
