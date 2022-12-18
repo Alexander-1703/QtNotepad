@@ -2,6 +2,9 @@
 #include <QDebug>
 #include <QSqlError>
 #include <QSqlRecord>
+#include <vector>
+
+std::vector<long long> notesId;
 
 DatabaseInteraction::DatabaseInteraction(QSqlDatabase& database)
 {
@@ -22,7 +25,9 @@ bool DatabaseInteraction::serialize(AbstractNote &note)
     query.bindValue(":changeDate", note.changeDate.toString().toLower());
     query.bindValue(":tags", note.tags.join(" ").toLower());
     query.bindValue(":text", note.text.toLower());
-    query.bindValue(":id", note.id);
+    auto item = note.id;
+    notesId.push_back(item);
+    query.bindValue(":id", item);
     if (query.exec()) {
         qDebug() << "succesful serialization";
         return true;
@@ -48,6 +53,12 @@ bool DatabaseInteraction::remove(long long id)
     QSqlQuery query = QSqlQuery(database);
     query.prepare("DELETE FROM notes WHERE id=?");
     query.addBindValue(id);
+    for (std::vector<long long>::size_type i = 0; i != notesId.size(); i++) {
+        if (notesId[i] == id) {
+            notesId.erase(notesId.begin() + id);
+            qDebug() << "Successful deletion from the vector";
+        }
+    }
     return query.exec();
 }
 
