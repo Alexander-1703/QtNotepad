@@ -170,21 +170,20 @@ void SearchWindow::on_radioButton_4_toggled(bool checked)
     }
 }
 
-
+//select
 void SearchWindow::on_pushButton_2_clicked()
 {
     long long selectedNoteId = getId();
     if (selectedNoteId == -1) {
         return;
     }
-//    this -> dbInteraction = new DatabaseInteraction(database);
     AbstractNote note = dbInteraction->get(selectedNoteId);
     Dialog* searchWindow = new Dialog(note);
     searchWindow -> setWindowTitle("Change a note");
     searchWindow -> show();
 }
 
-
+//show all
 void SearchWindow::on_pushButton_3_clicked()
 {
     widgetNotesId.clear();
@@ -208,14 +207,13 @@ void SearchWindow::on_pushButton_3_clicked()
     qDebug() << widgetNotesId.size();
 }
 
-
+//remove
 void SearchWindow::on_pushButton_4_clicked()
 {
     long long selectedNoteId = getId();
     if (selectedNoteId == -1) {
         return;
     }
-//    this -> dbInteraction = new DatabaseInteraction(database);
     if (dbInteraction->remove(selectedNoteId)) {
         qDebug() << "successful delete from table";
     } else {
