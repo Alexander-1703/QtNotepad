@@ -20,6 +20,7 @@ SOURCES += \
 HEADERS += \
     abstractNote.h \
     databaseinteraction.h \
+    dbcontroller.h \
     dialog.h \
     mainwindow.h \
     note.h \

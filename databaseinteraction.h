@@ -1,17 +1,19 @@
 #ifndef DATABASEINTERACTION_H
 #define DATABASEINTERACTION_H
 
+#include "dbcontroller.h"
 #include <note.h>
 
-class DatabaseInteraction
+class DatabaseInteraction : public DbController
 {
 public:
     QSqlDatabase database;
-    bool serialize(AbstractNote& note);
-    bool update(AbstractNote &note, long long id);
-    bool remove(long long id);
-    AbstractNote get(long long id);
+    bool serialize(AbstractNote& note) override;
+    bool update(AbstractNote &note, long long id) override;
+    bool remove(long long id) override;
+    AbstractNote get(long long id) override;
     DatabaseInteraction(QSqlDatabase& database);
+    virtual ~DatabaseInteraction();
 };
 
 #endif // DATABASEINTERACTION_H

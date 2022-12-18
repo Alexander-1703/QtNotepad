@@ -8,6 +8,10 @@ DatabaseInteraction::DatabaseInteraction(QSqlDatabase& database)
     this->database = database;
 }
 
+DatabaseInteraction::~DatabaseInteraction()
+{
+}
+
 bool DatabaseInteraction::serialize(AbstractNote &note)
 {
     QSqlQuery query = QSqlQuery(database);
