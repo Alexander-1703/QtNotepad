@@ -31,6 +31,8 @@ void SearchWindow::on_pushButton_clicked()
 {
     widgetNotesId.clear();
     QString plainText = ui->plainTextEdit->toPlainText();
+    int lessThanDays = ui->textEdit->toPlainText().toInt();
+    ui->textEdit->clear();
     ui->listWidget->clear();
     ui->plainTextEdit->clear();
     QSqlQuery query = QSqlQuery(database);
@@ -81,10 +83,8 @@ void SearchWindow::on_pushButton_clicked()
             while (query.next()) {
                 auto noteDate =  query.record().value(1).toString().split(" ")[2].toInt();
                 auto currentDate = QDateTime::currentDateTime().toString().split(" ")[2].toInt();
-                int lessThanDays = plainText.toInt();
-                if (lessThanDays < 0) {
-                    QMessageBox::warning(this, "Warning", "Invalid input");
-                    ui->textEdit->clear();
+                if (lessThanDays <= 0) {
+                    QMessageBox::warning(this, "Warning", "Invalid input, enter a positive number");
                     return;
                 }
                 if ((currentDate - noteDate) <= lessThanDays) {
@@ -108,10 +108,8 @@ void SearchWindow::on_pushButton_clicked()
             while (query.next()) {
                 auto noteDate =  query.record().value(1).toString().split(" ")[2].toInt();
                 auto currentDate = QDateTime::currentDateTime().toString().split(" ")[2].toInt();
-                int lessThanDays = plainText.toInt();
-                if (lessThanDays < 0) {
-                    QMessageBox::warning(this, "Warning", "Invalid input");
-                    ui->textEdit->clear();
+                if (lessThanDays <= 0) {
+                    QMessageBox::warning(this, "Warning", "Invalid input, enter a positive number");
                     return;
                 }
                 if (noteDate - currentDate <= lessThanDays) {
@@ -128,7 +126,7 @@ void SearchWindow::on_pushButton_clicked()
             }
             break;
     }
-    qDebug() << widgetNotesId.size();
+    qDebug() << "Items found by the specified filter: " << widgetNotesId.size();
 }
 
 int SearchWindow::getSearchFilter() const {
