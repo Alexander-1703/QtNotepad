@@ -29,7 +29,8 @@ bool DatabaseInteraction::serialize(AbstractNote &note)
 
 bool DatabaseInteraction::update(AbstractNote &note, long long id){
     QSqlQuery query = QSqlQuery(database);
-    query.prepare("UPDATE notes SET creationDate=?, text=?, tags=? WHERE id=?");
+    query.prepare("UPDATE notes SET author=?, changeDate=?, text=?, tags=? WHERE id=?");
+    query.addBindValue(note.author);
     query.addBindValue(note.changeDate.toString());
     query.addBindValue(note.text);
     query.addBindValue(note.tags);
@@ -61,15 +62,5 @@ AbstractNote DatabaseInteraction::get(long long id)
     auto creationDate = query.record().value(1).toDateTime();
     auto tags = query.record().value(3).toStringList();
     auto text = query.record().value(4).toString();
-
-//    QString author,QDateTime creationDate, QDateTime changeDate, QStringList tags, QString text, long long id
-
-//    QString str = query.record().value(4).toString() + "      " +
-//            + "[Author: " + query.record().value(0).toString() + ",    " +
-//            + "Tags: " + query.record().value(3).toString() + ",    " +
-//            + "Creation date: " + query.record().value(1).toString() + ",     " +
-//            + "Change date: " + query.record().value(2).toString() + ",     " +
-//            + "ID: " + query.record().value(5).toString() + "]";
-
     return *new Note(author, creationDate, QDateTime::currentDateTime(), tags, text, id);
 }
