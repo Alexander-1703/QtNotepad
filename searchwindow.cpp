@@ -15,21 +15,7 @@ SearchWindow::SearchWindow(QWidget *parent) :
     ui(new Ui::SearchWindow)
 {
     ui->setupUi(this);
-    QSqlQuery query = QSqlQuery(database);
-    query.prepare("SELECT * FROM notes");
-    if (!query.exec()) {
-       qDebug() << "Failed to connect to database";
-    }
-    while (query.next()) {
-        QString str = query.record().value(4).toString() + "      " +
-                + "[Author: " + query.record().value(0).toString() + ",    " +
-                + "Tags: " + query.record().value(3).toString() + ",    " +
-                + "Creation date: " + query.record().value(1).toString() + ",     " +
-                + "Change date: " + query.record().value(2).toString() + ",     " +
-                + "ID: " + query.record().value(5).toString() + "]";
-        QListWidgetItem* item = new QListWidgetItem(str);
-        ui->listWidget->addItem(item);
-    }
+    on_pushButton_3_clicked();
 }
 
 SearchWindow::~SearchWindow()
@@ -179,11 +165,29 @@ void SearchWindow::on_pushButton_2_clicked()
     long long selectedNoteId = elements[elements.length()-1].split("]")[0].toLongLong();
     this -> dbInteraction = new DatabaseInteraction(database);
     AbstractNote note = dbInteraction->get(selectedNoteId);
-    qDebug() << note.author << " " << note.text;
-    qDebug() << "start";
-    Dialog* searchWindow = new Dialog(&note);
+    Dialog* searchWindow = new Dialog(note);
     searchWindow -> setWindowTitle("Change a note");
     searchWindow -> show();
-    qDebug() << "final";
+}
+
+
+void SearchWindow::on_pushButton_3_clicked()
+{
+    ui->listWidget->clear();
+    QSqlQuery query = QSqlQuery(database);
+    query.prepare("SELECT * FROM notes");
+    if (!query.exec()) {
+       qDebug() << "Failed to connect to database";
+    }
+    while (query.next()) {
+        QString str = query.record().value(4).toString() + "      " +
+                + "[Author: " + query.record().value(0).toString() + ",    " +
+                + "Tags: " + query.record().value(3).toString() + ",    " +
+                + "Creation date: " + query.record().value(1).toString() + ",     " +
+                + "Change date: " + query.record().value(2).toString() + ",     " +
+                + "ID: " + query.record().value(5).toString() + "]";
+        QListWidgetItem* item = new QListWidgetItem(str);
+        ui->listWidget->addItem(item);
+    }
 }
 

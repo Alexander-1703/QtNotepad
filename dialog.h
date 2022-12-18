@@ -15,7 +15,7 @@ class Dialog : public QDialog
 
 public:
     explicit Dialog(QWidget *parent = nullptr);
-    Dialog(AbstractNote *note);
+    Dialog(AbstractNote note, QWidget *parent = nullptr);
     ~Dialog();
 
 private slots:
@@ -25,7 +25,7 @@ private:
     Ui::Dialog *ui;
     DatabaseInteraction* dbInteraction;
     QSqlDatabase database;
-    AbstractNote* note;
+    AbstractNote note;
 };
 
 #endif // DIALOG_H

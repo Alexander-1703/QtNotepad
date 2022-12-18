@@ -8,13 +8,15 @@ Dialog::Dialog(QWidget *parent) :
 {
     ui->setupUi(this);
 }
-Dialog::Dialog(AbstractNote *note)
+Dialog::Dialog(AbstractNote note, QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::Dialog)
 {
     ui->setupUi(this);
     this->note = note;
-    ui->plainTextEdit->appendPlainText(note->author);
-    ui->plainTextEdit_2->appendPlainText(note->text);
-    ui->plainTextEdit_3->appendPlainText(note->tags.join(" "));
+    ui->plainTextEdit->appendPlainText(note.author);
+    ui->plainTextEdit_2->appendPlainText(note.text);
+    ui->plainTextEdit_3->appendPlainText(note.tags.join(" "));
 }
 
 Dialog::~Dialog()
@@ -25,19 +27,17 @@ Dialog::~Dialog()
 void Dialog::on_pushButton_2_clicked()
 {
     qDebug() << "start button func";
-//    this -> dbInteraction = new DatabaseInteraction(database);
-//    note->text = ui->plainTextEdit_2->toPlainText();
-//    if (note->text.length() == 0) {
-//        QMessageBox::warning(this, "Warning", "Note text is empty!");
-//        return;
-//    }
-//    note->author = ui->plainTextEdit->toPlainText();
-//    note->tags = ui->plainTextEdit_3->toPlainText().split(" ");
-//    note->changeDate = QDateTime::currentDateTime();
-//    qDebug() << note->author << " " << note->text;
-//    if(!dbInteraction->update(*note, note->id)) {
-//                qDebug() << "Serialize not succesful";
-//    }
-//    delete note;
+    this -> dbInteraction = new DatabaseInteraction(database);
+    note.author =  ui->plainTextEdit->toPlainText();
+    note.text =  ui->plainTextEdit_2->toPlainText();
+    note.tags = ui->plainTextEdit_3->toPlainText().split(" ");
+    note.changeDate = QDateTime::currentDateTime();
+    qDebug() << note.text;
+    if(!dbInteraction->update(note, note.id)) {
+        qDebug() << "Update not succesful";
+    } else {
+        qDebug() << "Update succesful";
+    }
+    this->close();
 }
 
