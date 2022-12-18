@@ -10,14 +10,26 @@ QT += sql
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    databaseinteraction.cpp \
+    dialog.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    note.cpp \
+    searchwindow.cpp
 
 HEADERS += \
-    mainwindow.h
+    abstractNote.h \
+    databaseinteraction.h \
+    dbcontroller.h \
+    dialog.h \
+    mainwindow.h \
+    note.h \
+    searchwindow.h
 
 FORMS += \
-    mainwindow.ui
+    dialog.ui \
+    mainwindow.ui \
+    searchwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -26,3 +38,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     Resources.qrc
+
+DISTFILES += \
+    .gitignore
