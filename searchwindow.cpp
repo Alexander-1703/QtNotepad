@@ -6,18 +6,19 @@
 #include <QMessageBox>
 #include <vector>
 
-std::vector<long long> widgetNotesId;
-
 const int AUTHOR_SEARCH = 0;
 const int TAG_SEARCH = 1;
 const int CREATE_SEARCH = 2;
 const int CHANGE_SEARCH = 3;
+
+std::vector<long long> widgetNotesId;
 
 SearchWindow::SearchWindow(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SearchWindow)
 {
     ui->setupUi(this);
+    this -> dbInteraction = new DatabaseInteraction(database);
     on_pushButton_3_clicked();
 }
 
@@ -176,7 +177,7 @@ void SearchWindow::on_pushButton_2_clicked()
     if (selectedNoteId == -1) {
         return;
     }
-    this -> dbInteraction = new DatabaseInteraction(database);
+//    this -> dbInteraction = new DatabaseInteraction(database);
     AbstractNote note = dbInteraction->get(selectedNoteId);
     Dialog* searchWindow = new Dialog(note);
     searchWindow -> setWindowTitle("Change a note");
@@ -214,7 +215,7 @@ void SearchWindow::on_pushButton_4_clicked()
     if (selectedNoteId == -1) {
         return;
     }
-    this -> dbInteraction = new DatabaseInteraction(database);
+//    this -> dbInteraction = new DatabaseInteraction(database);
     if (dbInteraction->remove(selectedNoteId)) {
         qDebug() << "successful delete from table";
     } else {
