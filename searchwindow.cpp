@@ -4,6 +4,9 @@
 #include "dialog.h"
 
 #include <QMessageBox>
+#include <vector>
+
+std::vector<long long> widgetNotesId;
 
 const int AUTHOR_SEARCH = 0;
 const int TAG_SEARCH = 1;
@@ -25,6 +28,7 @@ SearchWindow::~SearchWindow()
 
 void SearchWindow::on_pushButton_clicked()
 {
+    widgetNotesId.clear();
     QString plainText = ui->plainTextEdit->toPlainText();
     ui->listWidget->clear();
     ui->plainTextEdit->clear();
@@ -44,6 +48,7 @@ void SearchWindow::on_pushButton_clicked()
                         + "Change date: " + query.record().value(2).toString() + ",     " +
                         + "ID: " + query.record().value(5).toString() + "]";
                 QListWidgetItem* item = new QListWidgetItem(str);
+                widgetNotesId.push_back(query.record().value(5).toLongLong());
                 ui->listWidget->addItem(item);
             }
             break;
@@ -62,6 +67,7 @@ void SearchWindow::on_pushButton_clicked()
                             + "Change date: " + query.record().value(2).toString() + ",     " +
                             + "ID: " + query.record().value(5).toString() + "]";
                     QListWidgetItem* item = new QListWidgetItem(str);
+                    widgetNotesId.push_back(query.record().value(5).toLongLong());
                     ui->listWidget->addItem(item);
                 }
             }
@@ -88,6 +94,7 @@ void SearchWindow::on_pushButton_clicked()
                             + "Change date: " + query.record().value(2).toString() + ",     " +
                             + "ID: " + query.record().value(5).toString() + "]";
                     QListWidgetItem* item = new QListWidgetItem(str);
+                    widgetNotesId.push_back(query.record().value(5).toLongLong());
                     ui->listWidget->addItem(item);
                 }
             }
@@ -114,11 +121,13 @@ void SearchWindow::on_pushButton_clicked()
                             + "Change date: " + query.record().value(2).toString() + ",     " +
                             + "ID: " + query.record().value(5).toString() + "]";
                     QListWidgetItem* item = new QListWidgetItem(str);
+                    widgetNotesId.push_back(query.record().value(5).toLongLong());
                     ui->listWidget->addItem(item);
                 }
             }
             break;
     }
+    qDebug() << widgetNotesId.size();
 }
 
 int SearchWindow::getSearchFilter() const {
@@ -177,6 +186,7 @@ void SearchWindow::on_pushButton_2_clicked()
 
 void SearchWindow::on_pushButton_3_clicked()
 {
+    widgetNotesId.clear();
     ui->listWidget->clear();
     QSqlQuery query = QSqlQuery(database);
     query.prepare("SELECT * FROM notes");
@@ -191,8 +201,10 @@ void SearchWindow::on_pushButton_3_clicked()
                 + "Change date: " + query.record().value(2).toString() + ",     " +
                 + "ID: " + query.record().value(5).toString() + "]";
         QListWidgetItem* item = new QListWidgetItem(str);
+        widgetNotesId.push_back(query.record().value(5).toLongLong());
         ui->listWidget->addItem(item);
     }
+    qDebug() << widgetNotesId.size();
 }
 
 
