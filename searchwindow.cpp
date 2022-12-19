@@ -202,7 +202,7 @@ void SearchWindow::on_pushButton_3_clicked()
         widgetNotesId.push_back(query.record().value(5).toLongLong());
         ui->listWidget->addItem(item);
     }
-    qDebug() << widgetNotesId.size();
+    qDebug() << "Items found by the specified filter: " << widgetNotesId.size();
 }
 
 //remove
